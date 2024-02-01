@@ -18,12 +18,6 @@ const Chat = () => {
 
   const [isOpen, setIsOpen] = React.useState(false)
 
-  const [selectedUser, setSelectedUser] = useState(null);
-  console.log(selectedUser)
-  const handleUserSelection = (userData) => {
-    setSelectedUser(userData);
-  };
-
   return (
     <div className="chat">
       <div className="chatInfo">
@@ -33,16 +27,16 @@ const Chat = () => {
           <label className='menu-button-container' for="menu-toggle">
             <div className='menu-button'></div>
           </label>
-          {selectedUser ? (<ul className="menu">
+          <ul className="menu">
 
             <li><Navbar /></li>
-            <li> <Search onUserSelect={handleUserSelection} /></li>
+            <li> <Search /></li>
             <li> <Chats /></li>
             <li><input id="menu-toggle" type="checkbox" />
               <label className='menu-button-container' for="menu-toggle">
                 <div className='menu-button-cross'> Close</div>
               </label></li>
-          </ul>) : (<></>)}
+          </ul>
         </section>
         <span>{data.user?.displayName}</span>
         <div className="chatIcons">
