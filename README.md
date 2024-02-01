@@ -7,4 +7,4 @@ This is a full stack progressive web app (PWA) chat app that uses react as front
 - password - test123
 
 
-## Latest deployed website - https://65bbdfe3a917b50f87008aa5--pwa-chat-app-demo.netlify.app/
+## Latest deployed website - https://pwa-chat-app-git-main-harshs1611.vercel.app/
