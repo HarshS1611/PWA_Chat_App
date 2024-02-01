@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext,useState } from "react";
 import Cam from "../img/cam.png";
 import Add from "../img/add.png";
 import More from "../img/more.png";
@@ -19,7 +19,7 @@ const Chat = () => {
   const [isOpen, setIsOpen] = React.useState(false)
 
   const [selectedUser, setSelectedUser] = useState(null);
-  console.log(selectedUser)
+
   const handleUserSelection = (userData) => {
     setSelectedUser(userData);
   };
@@ -33,7 +33,7 @@ const Chat = () => {
           <label className='menu-button-container' for="menu-toggle">
             <div className='menu-button'></div>
           </label>
-          {!selectedUser ? (<ul className="menu">
+          {data.user && <ul className="menu">
 
             <li><Navbar /></li>
             <li> <Search onUserSelect={handleUserSelection} /></li>
@@ -42,7 +42,7 @@ const Chat = () => {
               <label className='menu-button-container' for="menu-toggle">
                 <div className='menu-button-cross'> Close</div>
               </label></li>
-          </ul>) : (<></>)}
+          </ul>}
         </section>
         <span>{data.user?.displayName}</span>
         <div className="chatIcons">
