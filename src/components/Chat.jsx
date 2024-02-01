@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Cam from "../img/cam.png";
 import Add from "../img/add.png";
 import More from "../img/more.png";
@@ -18,30 +18,31 @@ const Chat = () => {
 
   const [isOpen, setIsOpen] = React.useState(false)
 
-  const handleClick = () => {
-    setIsOpen(!isOpen)
-    console.log(isOpen)
-  }
+  const [selectedUser, setSelectedUser] = useState(null);
+  console.log(selectedUser)
+  const handleUserSelection = (userData) => {
+    setSelectedUser(userData);
+  };
 
   return (
     <div className="chat">
       <div className="chatInfo">
-        <section class="top-nav">
+        <section className="top-nav">
 
           <input id="menu-toggle" type="checkbox" />
-          <label class='menu-button-container' for="menu-toggle">
-            <div class='menu-button'></div>
+          <label className='menu-button-container' for="menu-toggle">
+            <div className='menu-button'></div>
           </label>
-          <ul class="menu">
+          {!selectedUser ? (<ul className="menu">
 
             <li><Navbar /></li>
-            <li> <Search /></li>
+            <li> <Search onUserSelect={handleUserSelection} /></li>
             <li> <Chats /></li>
             <li><input id="menu-toggle" type="checkbox" />
-              <label class='menu-button-container' for="menu-toggle">
-                <div class='menu-button-cross'> Close</div>
+              <label className='menu-button-container' for="menu-toggle">
+                <div className='menu-button-cross'> Close</div>
               </label></li>
-          </ul>
+          </ul>) : (<></>)}
         </section>
         <span>{data.user?.displayName}</span>
         <div className="chatIcons">

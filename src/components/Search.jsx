@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
-const Search = () => {
+const Search = ({onUserSelect}) => {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
   const [err, setErr] = useState(false);
@@ -71,9 +71,11 @@ const Search = () => {
           [combinedId + ".date"]: serverTimestamp(),
         });
       }
-    } catch (err) {}
+    } catch (err) { }
 
     setUser(null);
+    onUserSelect(user);
+
     setUsername("")
   };
   return (
@@ -86,11 +88,12 @@ const Search = () => {
           onChange={(e) => setUsername(e.target.value)}
           value={username}
         />
+        <button onClick={handleSearch}>Search</button>
       </div>
       {err && <span>User not found!</span>}
       {user && (
         <div className="userChat" onClick={handleSelect}>
-                 Search Results :
+          Search Results :
 
           <img src={user.photoURL} alt="" />
           <div className="userChatInfo">

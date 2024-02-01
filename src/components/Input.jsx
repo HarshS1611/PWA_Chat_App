@@ -17,7 +17,7 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 const Input = () => {
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
-const [timer,setTimer] = useState("");
+  const [timer, setTimer] = useState("");
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
 
@@ -28,74 +28,75 @@ const [timer,setTimer] = useState("");
       const storageRef = ref(storage, uuid());
 
       const uploadTask = uploadBytesResumable(storageRef, img);
-      uploadTask.on('state_changed', 
-      (snapshot) => {
-        // Observe state change events such as progress, pause, and resume
-        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setTimer(progress)
-        console.log('Upload is ' + progress + '% done');
-        switch (snapshot.state) {
-          case 'paused':
-            console.log('Upload is paused');
-            break;
-          case 'running':
-            console.log('Upload is running');
-            break;
-        }
-      }, 
+      uploadTask.on('state_changed',
+        (snapshot) => {
+          // Observe state change events such as progress, pause, and resume
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setTimer(progress)
+          console.log('Upload is ' + progress + '% done');
+          switch (snapshot.state) {
+            case 'paused':
+              console.log('Upload is paused');
+              break;
+            case 'running':
+              console.log('Upload is running');
+              break;
+          }
+        },
         (error) => {
           //TODO:Handle Error
         },
         () => {
-         if(uploadTask.snapshot.metadata.contentType.startsWith('image/')){
+          if (uploadTask.snapshot.metadata.contentType.startsWith('image/')) {
 
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            console.log(downloadURL)
-            await updateDoc(doc(db, "chats", data.chatId), {
-              messages: arrayUnion({
-                id: uuid(),
-                text,
-                senderId: currentUser.uid,
-                date: Timestamp.now(),
-                img: downloadURL,
-                audioURL: "",
-                videoURL: "",
-              }),
+            getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+              console.log(downloadURL)
+              await updateDoc(doc(db, "chats", data.chatId), {
+                messages: arrayUnion({
+                  id: uuid(),
+                  text,
+                  senderId: currentUser.uid,
+                  date: Timestamp.now(),
+                  img: downloadURL,
+                  audioURL: "",
+                  videoURL: "",
+                }),
+              });
             });
-          });
-         }else if(uploadTask.snapshot.metadata.contentType.startsWith('video/')){
+          } else if (uploadTask.snapshot.metadata.contentType.startsWith('video/')) {
 
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            console.log(downloadURL)
-            await updateDoc(doc(db, "chats", data.chatId), {
-              messages: arrayUnion({
-                id: uuid(),
-                text,
-                senderId: currentUser.uid,
-                date: Timestamp.now(),
-                img: "",
-                audioURL: "",
-                videoURL: downloadURL,
-              }),
+            getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+              console.log(downloadURL)
+              await updateDoc(doc(db, "chats", data.chatId), {
+                messages: arrayUnion({
+                  id: uuid(),
+                  text,
+                  senderId: currentUser.uid,
+                  date: Timestamp.now(),
+                  img: "",
+                  audioURL: "",
+                  videoURL: downloadURL,
+                }),
+              });
             });
-          });
-         }else if(uploadTask.snapshot.metadata.contentType.startsWith("audio/")){
+          } else if (uploadTask.snapshot.metadata.contentType.startsWith("audio/")) {
 
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            console.log(downloadURL)
-            await updateDoc(doc(db, "chats", data.chatId), {
-              messages: arrayUnion({
-                id: uuid(),
-                text,
-                senderId: currentUser.uid,
-                date: Timestamp.now(),
-                img: "",
-                audioURL: downloadURL,
-                videoURL: "",              }),
+            getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+              console.log(downloadURL)
+              await updateDoc(doc(db, "chats", data.chatId), {
+                messages: arrayUnion({
+                  id: uuid(),
+                  text,
+                  senderId: currentUser.uid,
+                  date: Timestamp.now(),
+                  img: "",
+                  audioURL: downloadURL,
+                  videoURL: "",
+                }),
+              });
             });
-          });
-         }
+          }
         }
       );
     } else {
@@ -139,11 +140,11 @@ const [timer,setTimer] = useState("");
             e.preventDefault(); // Prevent the default action (form submission)
             handleSend();
           }
-       }}
+        }}
         value={text}
       />
       <div className="send">
-        {img && img.name}
+        {img ? `${img.name.substring(0, 10)}...` : ""}        
         <input
           type="file"
           style={{ display: "none" }}

@@ -9,6 +9,7 @@ import { useNavigate, Link } from "react-router-dom";
 const Register = () => {
   const [err, setErr] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [img, setImg] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -18,6 +19,11 @@ const Register = () => {
     const email = e.target[1].value;
     const password = e.target[2].value;
     const file = e.target[3].files[0];
+
+    if(!displayName || !email || !password || !file){
+      alert("Please fill all the above details")
+
+    }
 
     try {
       //Create user
@@ -68,13 +74,17 @@ const Register = () => {
           <input required type="text" placeholder="display name" />
           <input required type="email" placeholder="email" />
           <input required type="password" placeholder="password" />
-          <input required style={{ display: "none" }} type="file" id="file" />
+          <input onChange={(e) => {
+            if (e.target.files[0]) {
+              setImg(URL.createObjectURL(e.target.files[0]));
+            }
+          }} required type="file" style={{display: "none"}} id="file" />
           <label htmlFor="file">
             <img src={Add} alt="" />
             <span>Add an avatar</span>
-          </label>
+            {img && <img src={img} alt="Preview" />}          </label>
           <button disabled={loading}>Sign up</button>
-          {loading && "Uploading your image please wait..."}
+          {loading && "Creatign your profile please wait..."}
           {err && <span>Something went wrong</span>}
         </form>
         <p>
