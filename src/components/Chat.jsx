@@ -33,7 +33,7 @@ const Chat = () => {
           <label className='menu-button-container' for="menu-toggle">
             <div className='menu-button'></div>
           </label>
-          {!selectedUser ? (<ul className="menu">
+          {selectedUser ? (<ul className="menu">
 
             <li><Navbar /></li>
             <li> <Search onUserSelect={handleUserSelection} /></li>
