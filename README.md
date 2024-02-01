@@ -5,3 +5,6 @@ This is a full stack progressive web app (PWA) chat app that uses react as front
 ## Demo Account for testing - 
 - email - test3@gmail.com
 - password - test123
+
+
+## Latest deployed website - https://65bbdfe3a917b50f87008aa5--pwa-chat-app-demo.netlify.app/
