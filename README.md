@@ -1,5 +1,7 @@
-# Update
+# PWA CHAT APP
 
-After the new update of React, you won't be able to use CRA. But you can easily create your applications with Vite before following the video tutorial.
+This is a full stack progressive web app (PWA) chat app that uses react as frontend and firebase for backend and database. This has the authentication for authorized users and can store user chats. The user can chat with text, and also can send images, video, and audio files. Users also have an option to search another user with the username.
 
-[Create a React App with Vite](https://github.com/safak/youtube23/tree/react-mini)
+## Demo Account for testing - 
+- email - test3@gmail.com
+- password - test123
