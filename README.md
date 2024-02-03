@@ -5,7 +5,8 @@ This is a full stack progressive web app (PWA) chat app that uses react as front
 ## Tech Stack used and approach
 
 - I have used reactjs and scss for building the frontend and styling of the application. 
--  Then I have integrated firebase for authentication using email/password and storing user data such as email, profile picture and user chats. Our users can send and receive multimedia files such as images, audio and video in addition to text messages. For making this application a progressive web app (PWA) I have used workbox library. 
+-  Then I have integrated firebase for authentication using email/password and storing user data such as email, profile picture and user chats.
+-  Our users can send and receive multimedia files such as images, audio and video in addition to text messages. For making this application a progressive web app (PWA) I have used workbox library. 
 -  Users can also see the recent chats with other users and can search all the users that have created their account in the platform.
 
 ## Demo Account for testing - 
